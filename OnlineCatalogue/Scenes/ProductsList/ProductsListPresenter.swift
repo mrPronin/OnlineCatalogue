@@ -13,25 +13,33 @@ import UIKit
 
 protocol ProductsListPresenterInput
 {
-  func presentSomething(response: ProductsList.Something.Response)
+    func presentStoredProducts(response: ProductsList.FetchStoredProducts.Response)
 }
 
 protocol ProductsListPresenterOutput: class
 {
-  func displaySomething(viewModel: ProductsList.Something.ViewModel)
+    func displayFetchedStoredOrders(viewModel: ProductsList.FetchStoredProducts.ViewModel)
 }
 
 class ProductsListPresenter: ProductsListPresenterInput
 {
-  weak var output: ProductsListPresenterOutput!
-  
-  // MARK: - Presentation logic
-  
-  func presentSomething(response: ProductsList.Something.Response)
-  {
-    // NOTE: Format the response from the Interactor and pass the result back to the View Controller
+    weak var output: ProductsListPresenterOutput!
+    let currencyFormatter: NumberFormatter = {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        return currencyFormatter
+    }()
+    // MARK: - Presentation logic
     
-    let viewModel = ProductsList.Something.ViewModel()
-    output.displaySomething(viewModel: viewModel)
-  }
+    func presentStoredProducts(response: ProductsList.FetchStoredProducts.Response)
+    {
+        var displayedProducts: [ProductsList.FetchStoredProducts.ViewModel.DispayedProduct] = []
+        for product in response.products {
+            let price = currencyFormatter.string(from: product.price!)
+            let displayedProduct = ProductsList.FetchStoredProducts.ViewModel.DispayedProduct(id: product.id!, site_id: product.site_id!, title: product.title!, price: price!, currency_id: product.currency_id!, thumbnailURLString: product.thumbnail!)
+            displayedProducts.append(displayedProduct)
+        }
+        let viewModel = ProductsList.FetchStoredProducts.ViewModel(displayedProducts: displayedProducts)
+        output.displayFetchedStoredOrders(viewModel: viewModel)
+    }
 }

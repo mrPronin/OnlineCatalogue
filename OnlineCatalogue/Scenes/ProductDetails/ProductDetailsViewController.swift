@@ -25,7 +25,11 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewControll
 {
   var output: ProductDetailsViewControllerOutput!
   var router: ProductDetailsRouter!
-  
+    
+    @IBOutlet weak var thumbnailImageView: UIImageView!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    
   // MARK: - Object lifecycle
   
   override func awakeFromNib()

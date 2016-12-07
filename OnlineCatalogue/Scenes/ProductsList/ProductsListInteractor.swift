@@ -13,31 +13,26 @@ import UIKit
 
 protocol ProductsListInteractorInput
 {
-  func doSomething(request: ProductsList.Something.Request)
+    func fetchStoredProducts(request: ProductsList.FetchStoredProducts.Request)
 }
 
 protocol ProductsListInteractorOutput
 {
-  func presentSomething(response: ProductsList.Something.Response)
+    func presentStoredProducts(response: ProductsList.FetchStoredProducts.Response)
 }
 
 class ProductsListInteractor: ProductsListInteractorInput
 {
-  var output: ProductsListInteractorOutput!
-  var worker: ProductsListWorker!
-  
-  // MARK: - Business logic
-  
-  func doSomething(request: ProductsList.Something.Request)
-  {
-    // NOTE: Create some Worker to do the work
+    var output: ProductsListInteractorOutput!
+    var productsWorker = ProductsWorker(productsStore: ProductsMemStore())
     
-    worker = ProductsListWorker()
-    worker.doSomeWork()
+    // MARK: - Business logic
     
-    // NOTE: Pass the result to the Presenter
-    
-    let response = ProductsList.Something.Response()
-    output.presentSomething(response: response)
-  }
+    func fetchStoredProducts(request: ProductsList.FetchStoredProducts.Request)
+    {
+        productsWorker.fetchStoredProducts { (products) -> Void in
+            let response = ProductsList.FetchStoredProducts.Response(products: products)
+            self.output.presentStoredProducts(response: response)
+        }
+    }
 }

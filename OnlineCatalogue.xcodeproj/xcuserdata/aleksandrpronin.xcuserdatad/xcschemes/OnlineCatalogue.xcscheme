@@ -37,6 +37,11 @@
                BlueprintName = "OnlineCatalogueTests"
                ReferencedContainer = "container:OnlineCatalogue.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ProductsListViewControllerTests/testShouldDisplayFetchedStoredProducts()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">

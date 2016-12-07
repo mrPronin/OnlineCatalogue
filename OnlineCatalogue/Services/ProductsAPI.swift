@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class ProductsAPI: ProductsStoreProtocol {
+    
+    func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    {
+    }
+}

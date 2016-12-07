@@ -9,14 +9,28 @@
 //  clean architecture to your iOS and Mac projects, see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
+
+// MARK: - Products worker
 
 class ProductsWorker
 {
-  // MARK: - Business Logic
-  
-  func doSomeWork()
-  {
-    // NOTE: Do the work
-  }
+    var productsStore: ProductsStoreProtocol
+    
+    init(productsStore: ProductsStoreProtocol) {
+        self.productsStore = productsStore
+    }
+    
+    func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    {
+        productsStore.fetchStoredProducts { (products: [Product]) -> Void in
+            completionHandler(products)
+        }
+    }
+}
+
+// MARK: - Products store API
+
+protocol ProductsStoreProtocol {
+    func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
 }

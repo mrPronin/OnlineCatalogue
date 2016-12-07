@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class ProductsMemStore: ProductsStoreProtocol {
+    
+    func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    {
+    }
+}
