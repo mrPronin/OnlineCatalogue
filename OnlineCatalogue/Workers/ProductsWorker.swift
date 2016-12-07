@@ -27,10 +27,18 @@ class ProductsWorker
             completionHandler(products)
         }
     }
+    
+    func searchProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    {
+        productsStore.searchProducts { (products: [Product]) -> Void in
+            completionHandler(products)
+        }
+    }
 }
 
 // MARK: - Products store API
 
 protocol ProductsStoreProtocol {
     func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    func searchProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
 }

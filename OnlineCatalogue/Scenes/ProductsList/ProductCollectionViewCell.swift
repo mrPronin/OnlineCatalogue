@@ -15,7 +15,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     
-    class var ReuseIdentifier: String { return "\(type(of: self))" }
+//    class var ReuseIdentifier: String { return "\(type(of: self))" }
+    class var ReuseIdentifier: String { return "ProductCollectionViewCell" }
     
     // MARK: - Lifecycle Methods
     

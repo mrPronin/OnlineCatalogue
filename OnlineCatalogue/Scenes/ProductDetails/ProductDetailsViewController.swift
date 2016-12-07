@@ -10,58 +10,75 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 protocol ProductDetailsViewControllerInput
 {
-  func displaySomething(viewModel: ProductDetails.Something.ViewModel)
+    func displayProduct(_ viewModel: ProductDetails.GetProduct.ViewModel)
 }
 
 protocol ProductDetailsViewControllerOutput
 {
-  func doSomething(request: ProductDetails.Something.Request)
+    func getProduct(_ request: ProductDetails.GetProduct.Request)
+    var product: Product! { get set }
 }
 
 class ProductDetailsViewController: UIViewController, ProductDetailsViewControllerInput
 {
-  var output: ProductDetailsViewControllerOutput!
-  var router: ProductDetailsRouter!
+    var output: ProductDetailsViewControllerOutput!
+    var router: ProductDetailsRouter!
     
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
-  // MARK: - Object lifecycle
-  
-  override func awakeFromNib()
-  {
-    super.awakeFromNib()
-    ProductDetailsConfigurator.sharedInstance.configure(viewController: self)
-  }
-  
-  // MARK: - View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomethingOnLoad()
-  }
-  
-  // MARK: - Event handling
-  
-  func doSomethingOnLoad()
-  {
-    // NOTE: Ask the Interactor to do some work
+    lazy var placeholderImage: UIImage = {
+        let image = UIImage(named: "placeholder")!
+        return image
+    }()
     
-    let request = ProductDetails.Something.Request()
-    output.doSomething(request: request)
-  }
-  
-  // MARK: - Display logic
-  
-  func displaySomething(viewModel: ProductDetails.Something.ViewModel)
-  {
-    // NOTE: Display the result from the Presenter
+    // MARK: - Object lifecycle
     
-    // nameTextField.text = viewModel.name
-  }
+    override func awakeFromNib()
+    {
+        super.awakeFromNib()
+        ProductDetailsConfigurator.sharedInstance.configure(viewController: self)
+    }
+    
+    // MARK: - View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        getProductOnLoad()
+    }
+    
+    // MARK: - Event handling
+    
+    func getProductOnLoad()
+    {
+        // NOTE: Ask the Interactor to do some work
+        
+        let request = ProductDetails.GetProduct.Request()
+        output.getProduct(request)
+    }
+    
+    // MARK: - Display logic
+    
+    func displayProduct(_ viewModel: ProductDetails.GetProduct.ViewModel)
+    {
+        let displayedProduct = viewModel.displayedProduct
+        priceLabel.text = displayedProduct.price
+        titleLabel.text = displayedProduct.title
+        
+        let size = thumbnailImageView.frame.size
+        let URLString = displayedProduct.pictureURLString
+        thumbnailImageView.af_setImage(
+            withURL: URL(string: URLString)!,
+            placeholderImage: placeholderImage,
+            filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
+            imageTransition: .crossDissolve(0.2)
+        )
+    }
 }

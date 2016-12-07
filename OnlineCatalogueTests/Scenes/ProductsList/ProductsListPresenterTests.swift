@@ -44,6 +44,7 @@ class ProductsListPresenterTests: XCTestCase
     {
         // MARK: Method call expectations
         var displayFetchedStoredOrdersCalled = false
+        var displaySearchResultCalled = false
         
         // MARK: Argument expectations
         var viewModel: ProductsList.FetchStoredProducts.ViewModel!
@@ -53,6 +54,11 @@ class ProductsListPresenterTests: XCTestCase
         {
             displayFetchedStoredOrdersCalled = true
             self.viewModel = viewModel
+        }
+        
+        func displaySearchResult(viewModel: ProductsList.SearchProducts.ViewModel)
+        {
+            displaySearchResultCalled = true
         }
     }
     
@@ -71,7 +77,8 @@ class ProductsListPresenterTests: XCTestCase
                 title: "Notebook Acer 14 Cloudbook 32gb Win10 Hasta 12 Pagos S/rec",
                 price: NSDecimalNumber(string: "199"),
                 currency_id: "USD",
-                thumbnail: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-I.jpg"
+                thumbnail: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-I.jpg",
+                picture: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-O.jpg"
             )
         ]
         let response = ProductsList.FetchStoredProducts.Response(products: products)
@@ -99,7 +106,8 @@ class ProductsListPresenterTests: XCTestCase
                 title: "Notebook Acer 14 Cloudbook 32gb Win10 Hasta 12 Pagos S/rec",
                 price: NSDecimalNumber(string: "199"),
                 currency_id: "USD",
-                thumbnail: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-I.jpg"
+                thumbnail: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-I.jpg",
+                picture: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-O.jpg"
             )
         ]
         let response = ProductsList.FetchStoredProducts.Response(products: products)

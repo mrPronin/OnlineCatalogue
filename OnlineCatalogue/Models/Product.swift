@@ -16,6 +16,7 @@ struct Product: Equatable
     var price: NSDecimalNumber?
     var currency_id: String?
     var thumbnail: String?
+    var picture: String?
 }
 
 func ==(lhs: Product, rhs: Product) -> Bool

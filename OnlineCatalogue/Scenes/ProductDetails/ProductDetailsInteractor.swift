@@ -13,31 +13,33 @@ import UIKit
 
 protocol ProductDetailsInteractorInput
 {
-  func doSomething(request: ProductDetails.Something.Request)
+    func getProduct(_ request: ProductDetails.GetProduct.Request)
+    var product: Product! { get set }
 }
 
 protocol ProductDetailsInteractorOutput
 {
-  func presentSomething(response: ProductDetails.Something.Response)
+    func presentProduct(_ response: ProductDetails.GetProduct.Response)
 }
 
 class ProductDetailsInteractor: ProductDetailsInteractorInput
 {
-  var output: ProductDetailsInteractorOutput!
-  var worker: ProductDetailsWorker!
-  
-  // MARK: - Business logic
-  
-  func doSomething(request: ProductDetails.Something.Request)
-  {
-    // NOTE: Create some Worker to do the work
+    var output: ProductDetailsInteractorOutput!
+    var worker: ProductDetailsWorker!
+    var product: Product!
     
-    worker = ProductDetailsWorker()
-    worker.doSomeWork()
+    // MARK: - Business logic
     
-    // NOTE: Pass the result to the Presenter
-    
-    let response = ProductDetails.Something.Response()
-    output.presentSomething(response: response)
-  }
+    func getProduct(_ request: ProductDetails.GetProduct.Request)
+    {
+        // NOTE: Create some Worker to do the work
+        
+        worker = ProductDetailsWorker()
+        worker.doSomeWork()
+        
+        // NOTE: Pass the result to the Presenter
+        
+        let response = ProductDetails.GetProduct.Response(product: product)
+        output.presentProduct(response)
+    }
 }

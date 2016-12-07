@@ -13,6 +13,27 @@ import UIKit
 
 struct ProductsList
 {
+    struct SearchProducts {
+        struct Request
+        {
+            var searchString: String
+        }
+        struct Response
+        {
+            var products: [Product]
+        }
+        struct ViewModel
+        {
+            struct DispayedProduct
+            {
+                var id: String
+                var title: String
+                var price: String
+                var thumbnailURLString: String
+            }
+            var displayedProducts: [DispayedProduct]
+        }
+    }
     struct FetchStoredProducts
     {
         struct Request

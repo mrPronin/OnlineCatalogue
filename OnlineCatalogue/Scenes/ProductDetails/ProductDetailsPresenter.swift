@@ -13,25 +13,34 @@ import UIKit
 
 protocol ProductDetailsPresenterInput
 {
-  func presentSomething(response: ProductDetails.Something.Response)
+    func presentProduct(_ response: ProductDetails.GetProduct.Response)
 }
 
 protocol ProductDetailsPresenterOutput: class
 {
-  func displaySomething(viewModel: ProductDetails.Something.ViewModel)
+    func displayProduct(_ viewModel: ProductDetails.GetProduct.ViewModel)
 }
 
 class ProductDetailsPresenter: ProductDetailsPresenterInput
 {
-  weak var output: ProductDetailsPresenterOutput!
-  
-  // MARK: - Presentation logic
-  
-  func presentSomething(response: ProductDetails.Something.Response)
-  {
-    // NOTE: Format the response from the Interactor and pass the result back to the View Controller
+    weak var output: ProductDetailsPresenterOutput!
+    let currencyFormatter: NumberFormatter = {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.locale = Locale(identifier: "en_US")
+        currencyFormatter.numberStyle = .currency
+        return currencyFormatter
+    }()
     
-    let viewModel = ProductDetails.Something.ViewModel()
-    output.displaySomething(viewModel: viewModel)
-  }
+    // MARK: - Presentation logic
+    
+    func presentProduct(_ response: ProductDetails.GetProduct.Response)
+    {
+        let product = response.product
+        let price = currencyFormatter.string(from: product.price!)
+        
+        let dispayedProduct = ProductDetails.GetProduct.ViewModel.DisplayedProduct(id: product.id!, title: product.title!, price: price!, pictureURLString: product.picture!)
+        
+        let viewModel = ProductDetails.GetProduct.ViewModel(displayedProduct: dispayedProduct)
+        output.displayProduct(viewModel)
+    }
 }

@@ -13,16 +13,25 @@ import UIKit
 
 struct ProductDetails
 {
-  struct Something
+  struct GetProduct
   {
     struct Request
     {
     }
     struct Response
     {
+        var product: Product
     }
     struct ViewModel
     {
+        struct DisplayedProduct
+        {
+            var id: String
+            var title: String
+            var price: String
+            var pictureURLString: String
+        }
+        var displayedProduct: DisplayedProduct
     }
   }
 }

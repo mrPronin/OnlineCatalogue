@@ -14,11 +14,15 @@ import UIKit
 protocol ProductsListViewControllerInput
 {
     func displayFetchedStoredOrders(viewModel: ProductsList.FetchStoredProducts.ViewModel)
+    func displaySearchResult(viewModel: ProductsList.SearchProducts.ViewModel)
 }
 
 protocol ProductsListViewControllerOutput
 {
     func fetchStoredProducts(request: ProductsList.FetchStoredProducts.Request)
+    func searchProducts(request: ProductsList.SearchProducts.Request)
+    var storedProducts: [Product]? { get }
+    var searchResult: [Product]? { get }
 }
 
 class ProductsListViewController: UIViewController, ProductsListViewControllerInput
@@ -26,9 +30,11 @@ class ProductsListViewController: UIViewController, ProductsListViewControllerIn
     var output: ProductsListViewControllerOutput!
     var router: ProductsListRouter!
     var displayedStoredProducts: [ProductsList.FetchStoredProducts.ViewModel.DispayedProduct] = []
+    var displayedSearchResult: [ProductsList.SearchProducts.ViewModel.DispayedProduct] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     lazy var placeholderImage: UIImage = {
         let image = UIImage(named: "placeholder")!
@@ -49,10 +55,13 @@ class ProductsListViewController: UIViewController, ProductsListViewControllerIn
     {
         super.viewDidLoad()
         
-        self.collectionView.dataSource = self;
-        self.collectionView.delegate = self;
-        fetchStoredProductsOnLoad()
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.searchBar.delegate = self
         
+        fetchStoredProductsOnLoad()
     }
     
     // MARK: - Event handling
@@ -61,7 +70,6 @@ class ProductsListViewController: UIViewController, ProductsListViewControllerIn
     {
         // NOTE: Ask the Interactor to do some work
         let request = ProductsList.FetchStoredProducts.Request()
-        
         output.fetchStoredProducts(request: request)
     }
     
@@ -72,9 +80,15 @@ class ProductsListViewController: UIViewController, ProductsListViewControllerIn
         displayedStoredProducts = viewModel.displayedProducts
         collectionView.reloadData()
     }
+    
+    func displaySearchResult(viewModel: ProductsList.SearchProducts.ViewModel)
+    {
+        displayedSearchResult = viewModel.displayedProducts
+        tableView.reloadData()
+    }
 }
 
-extension ProductsListViewController: UICollectionViewDataSource {
+extension ProductsListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return displayedStoredProducts.count
@@ -82,6 +96,7 @@ extension ProductsListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let displayedProduct = displayedStoredProducts[(indexPath as NSIndexPath).row]
+        
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ProductCollectionViewCell.ReuseIdentifier,
             for: indexPath
@@ -98,9 +113,41 @@ extension ProductsListViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
 }
 
-extension ProductsListViewController: UICollectionViewDelegate {
+extension ProductsListViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayedSearchResult.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let displayedProduct = displayedSearchResult[(indexPath as NSIndexPath).row]
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: ProductTableViewCell.ReuseIdentifier,
+            for: indexPath
+        ) as! ProductTableViewCell
+        
+        cell.configureCell(
+            with: displayedProduct,
+            placeholderImage: placeholderImage
+        )
+        
+        return cell
+    }
+}
+
+extension ProductsListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        if let searchString = searchBar.text {
+            let request = ProductsList.SearchProducts.Request(searchString: searchString)
+            output.searchProducts(request: request)
+        }
+    }
 }

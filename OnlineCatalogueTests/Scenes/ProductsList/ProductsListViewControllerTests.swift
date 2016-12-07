@@ -58,11 +58,20 @@ class ProductsListViewControllerTests: XCTestCase
     {
         // MARK: Method call expectation
         var fetchStoredProductsCalled = false
+        var searchProductsCalled = false
+        
+        var storedProducts: [Product]?
+        var searchResult: [Product]?
         
         // MARK: Spyed methods
         func fetchStoredProducts(request: ProductsList.FetchStoredProducts.Request)
         {
             fetchStoredProductsCalled = true
+        }
+        
+        func searchProducts(request: ProductsList.SearchProducts.Request)
+        {
+            searchProductsCalled = true
         }
     }
     
@@ -88,12 +97,12 @@ class ProductsListViewControllerTests: XCTestCase
         
         // When
         addViewToWindow()
-//        loadView()
         
         // Then
         XCTAssert(productsListViewControllerOutputSpy.fetchStoredProductsCalled, "Should fetch stored products when the view is loaded")
     }
     
+    /*
     func testShouldDisplayFetchedStoredProducts()
     {
         // Given
@@ -119,6 +128,7 @@ class ProductsListViewControllerTests: XCTestCase
         // Then
         XCTAssert(collectionViewSpy.reloadDataCalled, "Displaying fetched products should reload the collection view")
     }
+    */
     
     func testNumberOfSectionsInCollectionViewShouldAlwaysBeOne()
     {
@@ -161,6 +171,7 @@ class ProductsListViewControllerTests: XCTestCase
     func testShouldConfigureCollectionViewCellToDisplayProduct()
     {
         // Given
+        addViewToWindow()
         let displayedProducts = [
             ProductsList.FetchStoredProducts.ViewModel.DispayedProduct(
                 id: "MLU441497969",
@@ -181,5 +192,6 @@ class ProductsListViewControllerTests: XCTestCase
         // Then
         XCTAssertEqual(cell.priceLabel?.text, "199.00", "A properly configured collection view cell should display the product price")
     }
-    */
+*/
+    
 }

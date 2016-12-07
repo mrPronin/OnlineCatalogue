@@ -14,25 +14,41 @@ import UIKit
 protocol ProductsListInteractorInput
 {
     func fetchStoredProducts(request: ProductsList.FetchStoredProducts.Request)
+    func searchProducts(request: ProductsList.SearchProducts.Request)
+    var storedProducts: [Product]? { get }
+    var searchResult: [Product]? { get }
 }
 
 protocol ProductsListInteractorOutput
 {
     func presentStoredProducts(response: ProductsList.FetchStoredProducts.Response)
+    func presentSearchResult(response: ProductsList.SearchProducts.Response)
 }
 
 class ProductsListInteractor: ProductsListInteractorInput
 {
     var output: ProductsListInteractorOutput!
     var productsWorker = ProductsWorker(productsStore: ProductsMemStore())
+    var storedProducts: [Product]?
+    var searchResult: [Product]?
     
     // MARK: - Business logic
     
     func fetchStoredProducts(request: ProductsList.FetchStoredProducts.Request)
     {
         productsWorker.fetchStoredProducts { (products) -> Void in
+            self.storedProducts = products
             let response = ProductsList.FetchStoredProducts.Response(products: products)
             self.output.presentStoredProducts(response: response)
+        }
+    }
+    
+    func searchProducts(request: ProductsList.SearchProducts.Request)
+    {
+        productsWorker.searchProducts { (products) -> Void in
+            self.searchResult = products
+            let response = ProductsList.SearchProducts.Response(products: products)
+            self.output.presentSearchResult(response: response)
         }
     }
 }
