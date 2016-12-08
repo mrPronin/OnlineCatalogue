@@ -61,9 +61,13 @@ class ProductsListViewController: UIViewController, ProductsListViewControllerIn
         self.tableView.delegate = self
         self.searchBar.delegate = self
         
-        searchBar.text = "Apple"
-        searchBar.becomeFirstResponder()
+//        searchBar.text = "Apple"
+//        searchBar.becomeFirstResponder()
         
+        fetchStoredProductsOnLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         fetchStoredProductsOnLoad()
     }
     

@@ -49,6 +49,8 @@ class ProductsListRouter: ProductsListRouterInput
         
         if segue.identifier == "ShowProductDetails" {
             passDataToProductDetailsScene(segue: segue)
+        } else if segue.identifier == "ShowStoredProductDetails" {
+            passDataToStoredProductDetailsScene(segue: segue)
         }
     }
     
@@ -58,6 +60,20 @@ class ProductsListRouter: ProductsListRouterInput
             if let selectedProduct = viewController.output.searchResult?[(selectedIndexPath as NSIndexPath).row] {
                 let productDetailsViewController = segue.destination as! ProductDetailsViewController
                 productDetailsViewController.output.product = selectedProduct
+                productDetailsViewController.output.storedProductOnly = false
+            }
+        }
+    }
+    
+    func passDataToStoredProductDetailsScene(segue: UIStoryboardSegue)
+    {
+        if let selectedIndexPaths = viewController.collectionView.indexPathsForSelectedItems {
+            let selectedIndexPath : NSIndexPath = selectedIndexPaths[0] as NSIndexPath
+            let item = (selectedIndexPath as NSIndexPath).item
+            if let selectedProduct = viewController.output.storedProducts?[item] {
+                let productDetailsViewController = segue.destination as! ProductDetailsViewController
+                productDetailsViewController.output.product = selectedProduct
+                productDetailsViewController.output.storedProductOnly = true
             }
         }
     }

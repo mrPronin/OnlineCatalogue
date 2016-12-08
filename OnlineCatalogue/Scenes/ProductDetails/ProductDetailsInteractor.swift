@@ -15,6 +15,7 @@ protocol ProductDetailsInteractorInput
 {
     func getProduct(_ request: ProductDetails.GetProduct.Request)
     var product: Product! { get set }
+    var storedProductOnly: Bool { get set }
 }
 
 protocol ProductDetailsInteractorOutput
@@ -27,22 +28,29 @@ class ProductDetailsInteractor: ProductDetailsInteractorInput
     var output: ProductDetailsInteractorOutput!
     var worker: ProductDetailsWorker!
     var product: Product!
-    var productsWorker = ProductsWorker(productsStore: ProductsAPI())
+    var storedProductOnly: Bool = false
+    
+    var productsAPIWorker = ProductsWorker(productsStore: ProductsAPI())
+    var productsCoreDataWorker = ProductsWorker(productsStore: ProductsCoreDataStore())
     
     // MARK: - Business logic
     
     func getProduct(_ request: ProductDetails.GetProduct.Request)
     {
-        productsWorker.fetchProduct(product.id) {(fetchedProduct) -> Void in
+        var productsWorker: ProductsWorker
+        if storedProductOnly {
+            productsWorker = productsCoreDataWorker
+        } else {
+            productsWorker = productsAPIWorker
+        }
+        productsWorker.fetchProduct(product.id) {(fetchedProduct, error) -> Void in
             if let product = fetchedProduct {
                 self.product = product
-                self.worker = ProductDetailsWorker()
-                self.worker.doSomeWork()
+                self.productsCoreDataWorker.storeProduct(self.product) { error in
+                    let response = ProductDetails.GetProduct.Response(product: self.product)
+                    self.output.presentProduct(response)
+                }
                 
-                // NOTE: Pass the result to the Presenter
-                
-                let response = ProductDetails.GetProduct.Response(product: self.product)
-                self.output.presentProduct(response)
             }
         }
     }

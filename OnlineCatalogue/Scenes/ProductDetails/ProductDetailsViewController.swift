@@ -22,6 +22,7 @@ protocol ProductDetailsViewControllerOutput
 {
     func getProduct(_ request: ProductDetails.GetProduct.Request)
     var product: Product! { get set }
+    var storedProductOnly: Bool { get set }
 }
 
 class ProductDetailsViewController: UIViewController, ProductDetailsViewControllerInput

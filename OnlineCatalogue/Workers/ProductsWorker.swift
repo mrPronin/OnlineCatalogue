@@ -21,10 +21,10 @@ class ProductsWorker
         self.productsStore = productsStore
     }
     
-    func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product], _ error: ProductsOperationError?) -> Void)
     {
-        productsStore.fetchStoredProducts { (products: [Product]) -> Void in
-            completionHandler(products)
+        productsStore.fetchStoredProducts { (products: [Product], error) -> Void in
+            completionHandler(products, error)
         }
     }
     
@@ -35,10 +35,17 @@ class ProductsWorker
         }
     }
     
-    func fetchProduct(_ id: String, completionHandler: @escaping (_ product: Product?) -> Void)
+    func fetchProduct(_ id: String, completionHandler: @escaping (_ product: Product?, _ error: ProductsOperationError?) -> Void)
     {
-        productsStore.fetchProduct(id) {(product) -> Void in
-            completionHandler(product)
+        productsStore.fetchProduct(id) {(product, error) -> Void in
+            completionHandler(product, error)
+        }
+    }
+    
+    func storeProduct(_ productToStore: Product, completionHandler: @escaping (_ error: ProductsOperationError?) -> Void)
+    {
+        productsStore.storeProduct(productToStore) { error in
+            completionHandler(error)
         }
     }
 }
@@ -46,7 +53,35 @@ class ProductsWorker
 // MARK: - Products store API
 
 protocol ProductsStoreProtocol {
-    func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product], _ error: ProductsOperationError?) -> Void)
     func searchProducts(_ searchString: String,  completionHandler: @escaping (_ products: [Product]) -> Void)
-    func fetchProduct(_ id: String, completionHandler: @escaping (_ product: Product?) -> Void)
+    func fetchProduct(_ id: String, completionHandler: @escaping (_ product: Product?, _ error: ProductsOperationError?) -> Void)
+    func storeProduct(_ productToStore: Product, completionHandler: @escaping (_ error: ProductsOperationError?) -> Void)
+}
+
+enum OrdersStoreResult<U>
+{
+    case success(result: U)
+    case failure(error: ProductsOperationError)
+}
+
+// MARK: - Orders store CRUD operation errors
+
+enum ProductsOperationError: Equatable, Error
+{
+    case cannotFetch(String)
+    case cannotCreate(String)
+    case cannotUpdate(String)
+    case cannotDelete(String)
+}
+
+func ==(lhs: ProductsOperationError, rhs: ProductsOperationError) -> Bool
+{
+    switch (lhs, rhs) {
+    case (.cannotFetch(let a), .cannotFetch(let b)) where a == b: return true
+    case (.cannotCreate(let a), .cannotCreate(let b)) where a == b: return true
+    case (.cannotUpdate(let a), .cannotUpdate(let b)) where a == b: return true
+    case (.cannotDelete(let a), .cannotDelete(let b)) where a == b: return true
+    default: return false
+    }
 }
