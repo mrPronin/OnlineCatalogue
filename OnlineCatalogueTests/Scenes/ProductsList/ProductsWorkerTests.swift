@@ -50,7 +50,27 @@ class ProductsWorkerTests: XCTestCase
             fetchStoredProductsCalled = true
             let oneSecond = DispatchTime.now() + Double(1 * Int64(NSEC_PER_SEC)) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: oneSecond, execute: {
-                completionHandler([Product(), Product()])
+                let products = [
+                    Product(
+                        id: "MLU441497969",
+                        site_id: "MLU",
+                        title: "Notebook Acer 14 Cloudbook 32gb Win10 Hasta 12 Pagos S/rec",
+                        price: NSDecimalNumber(string: "199.99"),
+                        currency_id: "USD",
+                        thumbnail: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-I.jpg",
+                        picture: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-O.jpg"
+                    ),
+                    Product(
+                        id: "MLU440035730",
+                        site_id: "MLU",
+                        title: "Notebook Hp Quad Core Tactil A8 1tb 8gb 12 Pagos S/ Rec Loi",
+                        price: NSDecimalNumber(string: "467"),
+                        currency_id: "USD",
+                        thumbnail: "http://mlu-s1-p.mlstatic.com/555215-MLU25154537916_112016-I.jpg",
+                        picture: "http://mlu-s1-p.mlstatic.com/555215-MLU25154537916_112016-O.jpg"
+                    )
+                ]
+                completionHandler(products as! [Product])
             })
         }
     }
