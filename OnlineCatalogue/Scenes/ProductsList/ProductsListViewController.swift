@@ -157,4 +157,20 @@ extension ProductsListViewController: UISearchBarDelegate {
             output.searchProducts(request: request)
         }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        let request = ProductsList.SearchProducts.Request(searchString: searchBar.text!)
+        output.searchProducts(request: request)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchText.characters.count == 0) {
+//            searchBar.resignFirstResponder()
+            searchBar.perform(#selector(UIResponder.resignFirstResponder), with: nil, afterDelay: 0.1)
+            let request = ProductsList.SearchProducts.Request(searchString: searchBar.text!)
+            output.searchProducts(request: request)
+        }
+    }
 }
