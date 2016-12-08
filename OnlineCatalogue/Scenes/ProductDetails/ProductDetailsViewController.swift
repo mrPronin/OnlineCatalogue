@@ -32,7 +32,6 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewControll
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    
     lazy var placeholderImage: UIImage = {
         let image = UIImage(named: "placeholder")!
         return image
@@ -72,13 +71,16 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewControll
         priceLabel.text = displayedProduct.price
         titleLabel.text = displayedProduct.title
         
-        let size = thumbnailImageView.frame.size
-        let URLString = displayedProduct.pictureURLString
-        thumbnailImageView.af_setImage(
-            withURL: URL(string: URLString)!,
-            placeholderImage: placeholderImage,
-            filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-            imageTransition: .crossDissolve(0.2)
-        )
+        if let URLString = displayedProduct.pictureURLString {
+            let size = thumbnailImageView.frame.size
+            thumbnailImageView.af_setImage(
+                withURL: URL(string: URLString)!,
+                placeholderImage: placeholderImage,
+                filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
+                imageTransition: .crossDissolve(0.2)
+            )
+        } else {
+            thumbnailImageView.image = placeholderImage
+        }
     }
 }

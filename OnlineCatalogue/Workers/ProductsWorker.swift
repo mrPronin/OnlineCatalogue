@@ -28,10 +28,17 @@ class ProductsWorker
         }
     }
     
-    func searchProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    func searchProducts(_ searchString: String,  completionHandler: @escaping (_ products: [Product]) -> Void)
     {
-        productsStore.searchProducts { (products: [Product]) -> Void in
+        productsStore.searchProducts(searchString) {(products: [Product]) -> Void in
             completionHandler(products)
+        }
+    }
+    
+    func fetchProduct(_ id: String, completionHandler: @escaping (_ product: Product?) -> Void)
+    {
+        productsStore.fetchProduct(id) {(product) -> Void in
+            completionHandler(product)
         }
     }
 }
@@ -40,5 +47,6 @@ class ProductsWorker
 
 protocol ProductsStoreProtocol {
     func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
-    func searchProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    func searchProducts(_ searchString: String,  completionHandler: @escaping (_ products: [Product]) -> Void)
+    func fetchProduct(_ id: String, completionHandler: @escaping (_ product: Product?) -> Void)
 }

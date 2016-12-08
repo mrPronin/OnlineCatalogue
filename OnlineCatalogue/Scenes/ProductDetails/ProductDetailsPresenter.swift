@@ -38,7 +38,7 @@ class ProductDetailsPresenter: ProductDetailsPresenterInput
         let product = response.product
         let price = currencyFormatter.string(from: product.price!)
         
-        let dispayedProduct = ProductDetails.GetProduct.ViewModel.DisplayedProduct(id: product.id!, title: product.title!, price: price!, pictureURLString: product.picture!)
+        let dispayedProduct = ProductDetails.GetProduct.ViewModel.DisplayedProduct(id: product.id, title: product.title!, price: price!, pictureURLString: product.picture)
         
         let viewModel = ProductDetails.GetProduct.ViewModel(displayedProduct: dispayedProduct)
         output.displayProduct(viewModel)

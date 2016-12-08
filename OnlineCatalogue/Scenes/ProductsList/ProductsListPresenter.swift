@@ -40,7 +40,7 @@ class ProductsListPresenter: ProductsListPresenterInput
         var displayedProducts: [ProductsList.FetchStoredProducts.ViewModel.DispayedProduct] = []
         for product in response.products {
             let price = currencyFormatter.string(from: product.price!)
-            let displayedProduct = ProductsList.FetchStoredProducts.ViewModel.DispayedProduct(id: product.id!, site_id: product.site_id!, title: product.title!, price: price!, currency_id: product.currency_id!, thumbnailURLString: product.thumbnail!)
+            let displayedProduct = ProductsList.FetchStoredProducts.ViewModel.DispayedProduct(id: product.id, site_id: product.site_id!, title: product.title!, price: price!, currency_id: product.currency_id!, thumbnailURLString: product.thumbnail!)
             displayedProducts.append(displayedProduct)
         }
         let viewModel = ProductsList.FetchStoredProducts.ViewModel(displayedProducts: displayedProducts)
@@ -52,7 +52,7 @@ class ProductsListPresenter: ProductsListPresenterInput
         var displayedProducts: [ProductsList.SearchProducts.ViewModel.DispayedProduct] = []
         for product in response.products {
             let price = currencyFormatter.string(from: product.price!)
-            let displayedProduct = ProductsList.SearchProducts.ViewModel.DispayedProduct(id: product.id!, title: product.title!, price: price!, thumbnailURLString: product.thumbnail!)
+            let displayedProduct = ProductsList.SearchProducts.ViewModel.DispayedProduct(id: product.id, title: product.title!, price: price!, thumbnailURLString: product.thumbnail!)
             displayedProducts.append(displayedProduct)
         }
         let viewModel = ProductsList.SearchProducts.ViewModel(displayedProducts: displayedProducts)

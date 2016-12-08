@@ -62,11 +62,16 @@ class ProductsMemStore: ProductsStoreProtocol {
     
     func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
     {
-        completionHandler(products)
+        completionHandler(products as! [Product])
     }
     
-    func searchProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    func searchProducts(_ searchString: String, completionHandler: @escaping (_ products: [Product]) -> Void)
     {
-        completionHandler(products)
+        completionHandler(products as! [Product])
+    }
+    
+    func fetchProduct(_ id: String, completionHandler: @escaping (_ product: Product?) -> Void)
+    {
+        completionHandler(products[0])
     }
 }

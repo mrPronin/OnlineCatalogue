@@ -14,7 +14,12 @@ class ProductsCoreDataStore: ProductsStoreProtocol {
     {
     }
     
-    func searchProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+    func searchProducts(_ searchString: String,  completionHandler: @escaping (_ products: [Product]) -> Void)
     {
+    }
+    
+    func fetchProduct(_ id: String, completionHandler: @escaping (_ product: Product?) -> Void)
+    {
+        
     }
 }

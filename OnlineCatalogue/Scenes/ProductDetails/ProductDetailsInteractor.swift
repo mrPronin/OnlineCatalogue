@@ -27,19 +27,23 @@ class ProductDetailsInteractor: ProductDetailsInteractorInput
     var output: ProductDetailsInteractorOutput!
     var worker: ProductDetailsWorker!
     var product: Product!
+    var productsWorker = ProductsWorker(productsStore: ProductsAPI())
     
     // MARK: - Business logic
     
     func getProduct(_ request: ProductDetails.GetProduct.Request)
     {
-        // NOTE: Create some Worker to do the work
-        
-        worker = ProductDetailsWorker()
-        worker.doSomeWork()
-        
-        // NOTE: Pass the result to the Presenter
-        
-        let response = ProductDetails.GetProduct.Response(product: product)
-        output.presentProduct(response)
+        productsWorker.fetchProduct(product.id) {(fetchedProduct) -> Void in
+            if let product = fetchedProduct {
+                self.product = product
+                self.worker = ProductDetailsWorker()
+                self.worker.doSomeWork()
+                
+                // NOTE: Pass the result to the Presenter
+                
+                let response = ProductDetails.GetProduct.Response(product: self.product)
+                self.output.presentProduct(response)
+            }
+        }
     }
 }

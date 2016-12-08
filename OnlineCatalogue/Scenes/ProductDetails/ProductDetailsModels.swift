@@ -29,7 +29,7 @@ struct ProductDetails
             var id: String
             var title: String
             var price: String
-            var pictureURLString: String
+            var pictureURLString: String?
         }
         var displayedProduct: DisplayedProduct
     }

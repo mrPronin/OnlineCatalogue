@@ -28,7 +28,8 @@ protocol ProductsListInteractorOutput
 class ProductsListInteractor: ProductsListInteractorInput
 {
     var output: ProductsListInteractorOutput!
-    var productsWorker = ProductsWorker(productsStore: ProductsMemStore())
+    var storedProductsWorker = ProductsWorker(productsStore: ProductsMemStore())
+    var searchProductsWorker = ProductsWorker(productsStore: ProductsAPI())
     var storedProducts: [Product]?
     var searchResult: [Product]?
     
@@ -36,7 +37,7 @@ class ProductsListInteractor: ProductsListInteractorInput
     
     func fetchStoredProducts(request: ProductsList.FetchStoredProducts.Request)
     {
-        productsWorker.fetchStoredProducts { (products) -> Void in
+        storedProductsWorker.fetchStoredProducts { (products) -> Void in
             self.storedProducts = products
             let response = ProductsList.FetchStoredProducts.Response(products: products)
             self.output.presentStoredProducts(response: response)
@@ -45,7 +46,8 @@ class ProductsListInteractor: ProductsListInteractorInput
     
     func searchProducts(request: ProductsList.SearchProducts.Request)
     {
-        productsWorker.searchProducts { (products) -> Void in
+        let searchString = request.searchString
+        searchProductsWorker.searchProducts(searchString) { (products) -> Void in
             self.searchResult = products
             let response = ProductsList.SearchProducts.Response(products: products)
             self.output.presentSearchResult(response: response)

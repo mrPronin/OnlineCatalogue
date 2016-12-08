@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EA4161B1DF8D0F600669A20 /* Product+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA4161A1DF8D0F600669A20 /* Product+Networking.swift */; };
+		3EA4161D1DF8DF4B00669A20 /* ProductRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA4161C1DF8DF4B00669A20 /* ProductRouter.swift */; };
 		3EC5CD9C1DF628B00013C3CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5CD9B1DF628B00013C3CB /* AppDelegate.swift */; };
 		3EC5CDA11DF628B00013C3CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EC5CD9F1DF628B00013C3CB /* Main.storyboard */; };
 		3EC5CDA41DF628B00013C3CB /* OnlineCatalogue.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5CDA21DF628B00013C3CB /* OnlineCatalogue.xcdatamodeld */; };
@@ -52,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3EA4161A1DF8D0F600669A20 /* Product+Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Product+Networking.swift"; path = "../Models/Product+Networking.swift"; sourceTree = "<group>"; };
+		3EA4161C1DF8DF4B00669A20 /* ProductRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRouter.swift; sourceTree = "<group>"; };
 		3EC5CD981DF628B00013C3CB /* OnlineCatalogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnlineCatalogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EC5CD9B1DF628B00013C3CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EC5CDA01DF628B00013C3CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 				3EC5CDE71DF62CDA0013C3CB /* ProductsMemStore.swift */,
 				3EC5CDE91DF62CF20013C3CB /* ProductsCoreDataStore.swift */,
 				3EC5CDEB1DF62D0D0013C3CB /* ProductsAPI.swift */,
+				3EA4161A1DF8D0F600669A20 /* Product+Networking.swift */,
+				3EA4161C1DF8DF4B00669A20 /* ProductRouter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -451,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EC5CDDE1DF62BC30013C3CB /* ProductsListConfigurator.swift in Sources */,
+				3EA4161D1DF8DF4B00669A20 /* ProductRouter.swift in Sources */,
 				3EC5CDEA1DF62CF20013C3CB /* ProductsCoreDataStore.swift in Sources */,
 				3EC5CDEE1DF62D2A0013C3CB /* Product.swift in Sources */,
 				3EC5CDFB1DF633F00013C3CB /* ProductDetailsViewController.swift in Sources */,
@@ -465,6 +472,7 @@
 				3EC5CDE01DF62BC30013C3CB /* ProductsListModels.swift in Sources */,
 				3EC5CDE21DF62BC30013C3CB /* ProductsListRouter.swift in Sources */,
 				3EC5CDA41DF628B00013C3CB /* OnlineCatalogue.xcdatamodeld in Sources */,
+				3EA4161B1DF8D0F600669A20 /* Product+Networking.swift in Sources */,
 				3EC5CDE11DF62BC30013C3CB /* ProductsListPresenter.swift in Sources */,
 				3EC5CDF71DF633F00013C3CB /* ProductDetailsInteractor.swift in Sources */,
 				3EC5CDF91DF633F00013C3CB /* ProductDetailsPresenter.swift in Sources */,
