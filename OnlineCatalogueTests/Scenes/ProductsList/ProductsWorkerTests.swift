@@ -45,7 +45,7 @@ class ProductsWorkerTests: XCTestCase
         // MARK: Method call expectation
         var fetchStoredProductsCalled = false
         
-        override func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+        func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
         {
             fetchStoredProductsCalled = true
             let oneSecond = DispatchTime.now() + Double(1 * Int64(NSEC_PER_SEC)) / Double(NSEC_PER_SEC)
@@ -64,7 +64,7 @@ class ProductsWorkerTests: XCTestCase
         
         // When
         let expectation = self.expectation(description: "Wait for fetchStoredProducts() to return")
-        sut.fetchStoredProducts { (products: [Product]) -> Void in
+        sut.fetchStoredProducts { (products: [Product], nil) -> Void in
             expectation.fulfill()
         }
         

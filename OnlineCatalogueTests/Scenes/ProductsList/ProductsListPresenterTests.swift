@@ -81,7 +81,7 @@ class ProductsListPresenterTests: XCTestCase
                 picture: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-O.jpg"
             )
         ]
-        let response = ProductsList.FetchStoredProducts.Response(products: products)
+        let response = ProductsList.FetchStoredProducts.Response(products: products as! [Product])
         
         // When
         sut.presentStoredProducts(response: response)
@@ -110,7 +110,7 @@ class ProductsListPresenterTests: XCTestCase
                 picture: "http://mlu-s2-p.mlstatic.com/585221-MLU20740156773_052016-O.jpg"
             )
         ]
-        let response = ProductsList.FetchStoredProducts.Response(products: products)
+        let response = ProductsList.FetchStoredProducts.Response(products: products as! [Product])
         
         // When
         sut.presentStoredProducts(response: response)

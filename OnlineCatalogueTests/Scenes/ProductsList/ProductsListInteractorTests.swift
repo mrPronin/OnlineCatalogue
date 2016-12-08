@@ -50,6 +50,11 @@ class ProductsListInteractorTests: XCTestCase
         {
             presentStoredProductsCalled = true
         }
+        
+        func presentSearchResult(response: ProductsList.SearchProducts.Response)
+        {
+            
+        }
     }
     
     class ProductsWorkerSpy: ProductsWorker
@@ -58,7 +63,7 @@ class ProductsListInteractorTests: XCTestCase
         var fetchStoredProductsCalled = false
         
         // MARK: Spied methods
-        override func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
+        func fetchStoredProducts(_ completionHandler: @escaping (_ products: [Product]) -> Void)
         {
             fetchStoredProductsCalled = true
             completionHandler([])
@@ -73,7 +78,7 @@ class ProductsListInteractorTests: XCTestCase
         let productsListInteractorOutputSpy = ProductsListInteractorOutputSpy()
         sut.output = productsListInteractorOutputSpy
         let productsWorkerSpy = ProductsWorkerSpy(productsStore: ProductsMemStore())
-        sut.productsWorker = productsWorkerSpy
+        sut.storedProductsWorker = productsWorkerSpy
         
         // When
         let request = ProductsList.FetchStoredProducts.Request()
