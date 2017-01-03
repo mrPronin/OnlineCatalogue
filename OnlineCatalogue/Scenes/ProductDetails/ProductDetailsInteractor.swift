@@ -43,14 +43,16 @@ class ProductDetailsInteractor: ProductDetailsInteractorInput
         } else {
             productsWorker = productsAPIWorker
         }
-        productsWorker.fetchProduct(product.id) {(fetchedProduct, error) -> Void in
-            if let product = fetchedProduct {
-                self.product = product
-                self.productsCoreDataWorker.storeProduct(self.product) { error in
-                    let response = ProductDetails.GetProduct.Response(product: self.product)
-                    self.output.presentProduct(response)
+        if let currentProduct = product {
+            productsWorker.fetchProduct(currentProduct.id) {(fetchedProduct, error) -> Void in
+                if let fetchedProduct = fetchedProduct {
+                    self.product = fetchedProduct
+                    self.productsCoreDataWorker.storeProduct(self.product) { error in
+                        let response = ProductDetails.GetProduct.Response(product: self.product)
+                        self.output.presentProduct(response)
+                    }
+                    
                 }
-                
             }
         }
     }

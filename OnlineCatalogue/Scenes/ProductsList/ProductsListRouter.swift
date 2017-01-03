@@ -73,9 +73,11 @@ class ProductsListRouter: ProductsListRouterInput
             let selectedIndexPath : NSIndexPath = selectedIndexPaths[0] as NSIndexPath
             let item = (selectedIndexPath as NSIndexPath).item
             if let selectedProduct = viewController.output.storedProducts?[item] {
-                let productDetailsViewController = segue.destination as! ProductDetailsViewController
-                productDetailsViewController.output.product = selectedProduct
-                productDetailsViewController.output.storedProductOnly = true
+                if let destinationNav = segue.destination as? UINavigationController, let destination = destinationNav.topViewController as? ProductDetailsViewController {
+                    let productDetailsViewController = destination
+                    productDetailsViewController.output.product = selectedProduct
+                    productDetailsViewController.output.storedProductOnly = true
+                }
             }
         }
     }

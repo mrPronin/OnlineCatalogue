@@ -52,6 +52,14 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewControll
     {
         super.viewDidLoad()
         getProductOnLoad()
+        
+        /*
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        }
+        */
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        navigationItem.leftItemsSupplementBackButton = true
     }
     
     // MARK: - Event handling

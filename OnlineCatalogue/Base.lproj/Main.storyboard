@@ -40,7 +40,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="guP-2S-7MI" id="xvI-9A-jAP">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p4y-JS-RAI" userLabel="thumbnailImageView">
@@ -136,7 +136,7 @@
                                         <connections>
                                             <outlet property="priceLabel" destination="C78-JN-14p" id="RJq-eh-miS"/>
                                             <outlet property="thumbnailImageView" destination="DkM-Ze-KKT" id="xn3-bo-FAv"/>
-                                            <segue destination="HH3-GC-PIJ" kind="show" identifier="ShowStoredProductDetails" id="LMK-Ml-e2V"/>
+                                            <segue destination="slz-C1-TQB" kind="showDetail" identifier="ShowStoredProductDetails" id="nD0-BN-FBr"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -277,7 +277,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="LMK-Ml-e2V"/>
-        <segue reference="31k-bE-atw"/>
+        <segue reference="nD0-BN-FBr"/>
     </inferredMetricsTieBreakers>
 </document>

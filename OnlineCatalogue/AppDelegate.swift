@@ -21,6 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let splitViewController = window!.rootViewController as! UISplitViewController
         splitViewController.delegate = self
+        if UIDevice.current.userInterfaceIdiom == .pad {
+//            splitViewController.preferredDisplayMode = .primaryOverlay
+            splitViewController.preferredDisplayMode = .allVisible
+            splitViewController.preferredPrimaryColumnWidthFraction = 0.5
+            splitViewController.maximumPrimaryColumnWidth = 512
+        }
         
         return true
     }
