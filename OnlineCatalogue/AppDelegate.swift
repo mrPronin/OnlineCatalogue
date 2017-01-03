@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         coreDataManager = CoreDataManager()
         
+        let splitViewController = window!.rootViewController as! UISplitViewController
+        splitViewController.delegate = self
+        
         return true
     }
 
@@ -47,3 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: UISplitViewControllerDelegate {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
+}

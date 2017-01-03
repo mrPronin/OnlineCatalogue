@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jFa-1G-zq0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="13S-s2-o1h">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -40,7 +40,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="guP-2S-7MI" id="xvI-9A-jAP">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p4y-JS-RAI" userLabel="thumbnailImageView">
@@ -79,7 +79,7 @@
                                             <outlet property="priceLabel" destination="pVd-wL-qRB" id="Vqw-wM-5E1"/>
                                             <outlet property="thumbnailImageView" destination="p4y-JS-RAI" id="QQW-Im-ufc"/>
                                             <outlet property="titleLabel" destination="OfP-ab-DiM" id="OT8-9Q-Jka"/>
-                                            <segue destination="HH3-GC-PIJ" kind="show" identifier="ShowProductDetails" id="l4F-D3-o3X"/>
+                                            <segue destination="slz-C1-TQB" kind="showDetail" identifier="ShowProductDetails" id="31k-bE-atw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -136,7 +136,7 @@
                                         <connections>
                                             <outlet property="priceLabel" destination="C78-JN-14p" id="RJq-eh-miS"/>
                                             <outlet property="thumbnailImageView" destination="DkM-Ze-KKT" id="xn3-bo-FAv"/>
-                                            <segue destination="HH3-GC-PIJ" kind="show" identifier="ShowStoredProductDetails" id="7oi-MV-UvV"/>
+                                            <segue destination="HH3-GC-PIJ" kind="show" identifier="ShowStoredProductDetails" id="LMK-Ml-e2V"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -215,6 +215,7 @@
                             <constraint firstItem="b33-UA-Shs" firstAttribute="leading" secondItem="thW-x1-yas" secondAttribute="trailing" constant="8" id="z14-sr-kHW"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="itb-ab-rd8"/>
                     <connections>
                         <outlet property="priceLabel" destination="eXk-T2-r0s" id="Akq-K8-uxU"/>
                         <outlet property="thumbnailImageView" destination="thW-x1-yas" id="6P8-eY-23F"/>
@@ -223,7 +224,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pC9-eh-GD6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1976.8" y="135.38230884557723"/>
+            <point key="canvasLocation" x="1079" y="1211"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ujc-Xy-MBx">
@@ -243,8 +244,40 @@
             </objects>
             <point key="canvasLocation" x="178" y="135"/>
         </scene>
+        <!--Split View Controller-->
+        <scene sceneID="DZP-Ju-nsb">
+            <objects>
+                <splitViewController id="13S-s2-o1h" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="jFa-1G-zq0" kind="relationship" relationship="masterViewController" id="gxP-rs-VJA"/>
+                        <segue destination="slz-C1-TQB" kind="relationship" relationship="detailViewController" id="Dap-GB-Vgo"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jEc-cN-ia5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-946" y="801"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="K9U-Je-GNa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="slz-C1-TQB" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qsg-cF-lg7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HH3-GC-PIJ" kind="relationship" relationship="rootViewController" id="Dst-KP-Dhq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mJU-ZP-uId" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="176.80000000000001" y="1211.2443778110946"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7oi-MV-UvV"/>
+        <segue reference="LMK-Ml-e2V"/>
+        <segue reference="31k-bE-atw"/>
     </inferredMetricsTieBreakers>
 </document>
